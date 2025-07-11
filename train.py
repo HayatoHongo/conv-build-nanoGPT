@@ -373,7 +373,7 @@ for step in range(max_steps):
     last_step = (step == max_steps - 1)
 
     # once in a while evaluate our validation loss
-    if step % 100 == 0 or last_step:
+    if step % 10 == 0 or last_step:
         model.eval()
         val_loader.reset()
         with torch.no_grad():
@@ -393,7 +393,7 @@ for step in range(max_steps):
             with open(log_file, "a") as f:
                 f.write(f"{step} val {val_loss_accum.item():.4f}\n")
 
-            if step > 0 and (step % 100 == 0 or last_step):
+            if step > 0 and (step % 10 == 0 or last_step):
                 # 1) モデルを CPU に移して state_dict を取得
                 raw_cpu = raw_model.to("cpu")
                 # state_dict = raw_cpu.state_dict()
@@ -406,8 +406,8 @@ for step in range(max_steps):
                     raw_cpu,
                     safetensors_path,
                     metadata={
-                        "step": step,
-                        "val_loss": val_loss_accum.item()
+                        "step": str(step),
+                        "val_loss": f"{val_loss_accum.item():.6f}"
                     }
                 )
 

@@ -373,7 +373,7 @@ for step in range(max_steps):
     last_step = (step == max_steps - 1)
 
     # once in a while evaluate our validation loss
-    if step % 250 == 0 or last_step:
+    if step % 100 == 0 or last_step:
         model.eval()
         val_loader.reset()
         with torch.no_grad():
@@ -396,14 +396,14 @@ for step in range(max_steps):
             if step > 0 and (step % 100 == 0 or last_step):
                 # 1) モデルを CPU に移して state_dict を取得
                 raw_cpu = raw_model.to("cpu")
-                state_dict = raw_cpu.state_dict()
+                # state_dict = raw_cpu.state_dict()
 
                 # 2) .safetensors 形式で共有テンソルも正しく扱って保存
                 safetensors_path = os.path.join(
                     log_dir, f"model_{step:05d}.safetensors"
                 )
                 save_model(
-                    state_dict,
+                    raw_cpu,
                     safetensors_path,
                     metadata={
                         "step": step,

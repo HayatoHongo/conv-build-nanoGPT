@@ -7,6 +7,7 @@ import torch
 import torch.nn as nn
 from torch.nn import functional as F
 from hellaswag import render_example, iterate_examples
+from safetensors.torch import save_file
 
 # --- Conv1D の実装 ---
 class Conv1D(nn.Module):
@@ -392,17 +393,21 @@ for step in range(max_steps):
             with open(log_file, "a") as f:
                 f.write(f"{step} val {val_loss_accum.item():.4f}\n")
             if step > 0 and (step % 500 == 0 or last_step):
-                # optionally write model checkpoints
-                checkpoint_path = os.path.join(log_dir, f"model_{step:05d}.pt")
-                checkpoint = {
-                    'model': raw_model.state_dict(),
-                    'config': raw_model.config,
-                    'step': step,
-                    'val_loss': val_loss_accum.item()
-                }
-                # you might also want to add optimizer.state_dict() and
-                # rng seeds etc., if you wanted to more exactly resume training
-                torch.save(checkpoint, checkpoint_path)
+                # チェックポイント保存
+                # 1) モデルを CPU に移して state_dict を取得
+                raw_cpu = raw_model.to("cpu")
+                state_dict = raw_cpu.state_dict()
+
+                # 2) .safetensors 形式で保存
+                safetensors_path = os.path.join(
+                    log_dir, f"model_{step:05d}.safetensors"
+                )
+                save_file(state_dict, safetensors_path)
+
+                # 3) config.json も同ディレクトリに書き出し
+                raw_cpu.config.save_pretrained(log_dir)
+
+                print(f"Saved checkpoint to {safetensors_path}")
 
     # once in a while evaluate hellaswag
     if (step % 250 == 0 or last_step) and (not use_compile):

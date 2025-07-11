@@ -404,11 +404,7 @@ for step in range(max_steps):
                 )
                 save_model(
                     raw_cpu,
-                    safetensors_path,
-                    metadata={
-                        "step": str(step),
-                        "val_loss": f"{val_loss_accum.item():.6f}"
-                    }
+                    safetensors_path
                 )
 
                 # 3) config.json も同ディレクトリに書き出し

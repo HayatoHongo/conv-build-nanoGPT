@@ -7,7 +7,10 @@ import torch
 import torch.nn as nn
 from torch.nn import functional as F
 from hellaswag import render_example, iterate_examples
+
+# for saving the model in safetensors format
 from safetensors.torch import save_model
+import json, dataclasses
 
 # --- Conv1D の実装 ---
 class Conv1D(nn.Module):
@@ -407,8 +410,11 @@ for step in range(max_steps):
                     safetensors_path
                 )
 
-                # 3) config.json も同ディレクトリに書き出し
-                raw_cpu.config.save_pretrained(log_dir)
+                # --- コンフィグ保存（ここが新規） ---
+                cfg_path = os.path.join(log_dir, "config.json")   # ← ここで作った変数
+                with open(cfg_path, "w") as f:
+                    json.dump(dataclasses.asdict(raw_cpu.config), f, indent=2)
+                print(f"Saved config to {cfg_path}")
 
                 print(f"Saved checkpoint to {safetensors_path}")
 

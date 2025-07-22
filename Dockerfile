@@ -22,9 +22,17 @@ COPY . /app
 # pipをアップグレード
 RUN python3 -m pip install --upgrade pip
 
-# 必要なPythonライブラリをインストール
-# タイムアウト: 3000秒
-RUN pip3 install --default-timeout=3000 numpy tiktoken datasets tqdm requests torch transformers matplotlib
+# 必要なPythonライブラリをバージョン固定でインストール（タイムアウト3000秒）
+RUN pip3 install --default-timeout=3000 \
+    numpy==2.2.3 \
+    tiktoken==0.9.0 \
+    datasets==3.3.2 \
+    tqdm==4.66.2 \
+    requests==2.32.3 \
+    torch==2.6.0 \
+    transformers==4.49.0 \
+    safetensors==0.5.3 \
+    matplotlib==3.10.1
 
 # コンテナ起動時のデフォルトコマンド（例：fineweb.pyを実行）
 CMD ["python3", "fineweb.py"]

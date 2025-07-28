@@ -31,8 +31,8 @@ RUN pip3 install --default-timeout=3000 \
     requests \
     torch==2.6.0 \
     transformers==4.49.0 \
-    safetensors==0.5.3 \
-    matplotlib==3.10.1
+    safetensors \
+    matplotlib
 
 # コンテナ起動時のデフォルトコマンド（例：fineweb.pyを実行）
 CMD ["python3", "fineweb.py"]

@@ -24,11 +24,11 @@ RUN python3 -m pip install --upgrade pip
 
 # 必要なPythonライブラリをバージョン固定でインストール（タイムアウト3000秒）
 RUN pip3 install --default-timeout=3000 \
-    numpy==2.2.3 \
-    tiktoken==0.9.0 \
-    datasets==3.3.2 \
-    tqdm==4.66.2 \
-    requests==2.32.3 \
+    numpy \
+    tiktoken \
+    datasets2 \
+    tqdm \
+    requests \
     torch==2.6.0 \
     transformers==4.49.0 \
     safetensors==0.5.3 \

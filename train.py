@@ -403,7 +403,7 @@ for step in range(max_steps):
                 # you might also want to add optimizer.state_dict() and
                 # rng seeds etc., if you wanted to more exactly resume training
                 torch.save(checkpoint, checkpoint_path)
-                print(f"{checkpoint} was saved to {checkpoint_path}.")
+                print(f"Model at step {step} saved to {checkpoint_path}.")
 
     # once in a while evaluate hellaswag
     if (step % 250 == 0 or last_step) and (not use_compile):

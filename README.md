@@ -1,5 +1,90 @@
 # build nanoGPT
 
+
+# Instructions for Requesting Someone to Set Up a GPU Instance
+
+## 🔑 1. User: Generate an SSH Key
+
+To access the GPU instance securely, the user must generate their own **SSH key pair**:
+
+- This will create a **public key** and a **private key**.
+- **Keep the private key safe and never share it.**
+- During key creation, you may be prompted to create a passphrase (password).  
+  👉 **It is recommended to leave it empty**, as it's easy to forget.  
+  If you do create one, **be sure to store it somewhere safe**.
+
+> If you've already created an SSH key before, you can skip this step.
+
+### ✅ How to Create an SSH Key
+
+Search on YouTube (or other platforms) in your native language, as the method may vary by OS:
+
+- For **Mac users**:
+  - Search: `Mac SSH key create ed25519`
+- For **Windows users**:
+  - Search: `Windows SSH key generate ed25519`
+
+### 📌 Example Public Key Format
+```
+ssh-ed25519 AAAA... user@example.com
+```
+---
+
+## ☁️ 2. AWS Lambda GPU Cloud Setup
+
+under construction
+
+---
+
+## 🧪 3. Run the Following Commands on the Instance
+
+# Clone the project repository
+
+```bash
+git clone https://github.com/HayatoHongo/conv-build-nanoGPT
+```
+
+```bash
+ls
+```
+
+# Move into the project directory
+```bash
+cd conv-build-nanoGPT
+```
+
+
+# Pull the prebuilt Docker image
+```bash
+docker pull hayatohongo/202050729-traingpt2-hayatohongo-v0:latest
+```
+
+# Run the Docker container
+```bash
+sudo docker run -it --name my-gpt-train hayatohongo/202050729-traingpt2-hayatohongo-v0:latest bash
+```
+
+# Exit the container
+Ctrl + D 
+
+```bash
+mkdir -p /home/ubuntu/model_weights
+```
+
+```bash
+sudo docker run --gpus all -it \
+  -v /home/ubuntu/fineweb-filesystem-australia-east-1:/persistent \
+  -v /home/ubuntu/model_weights:/app/log \
+  my-gpt-train torchrun --standalone --nproc_per_node=8 train.py
+```
+
+# Open a new window and donwload the file
+```bash
+# ex: scp -i ~/.ssh/id_ed25519 ubuntu@192.9.171.166:~/model_weights/model_01000.pt ./model_01000.pt
+scp -i ~/.ssh/id_ed25519 ubuntu@IP_address:~/model_weights/your-filename ./your-filename
+```
+
+
 This repo holds the from-scratch reproduction of [nanoGPT](https://github.com/karpathy/nanoGPT/tree/master). The git commits were specifically kept step by step and clean so that one can easily walk through the git commit history to see it built slowly. Additionally, there is an accompanying [video lecture on YouTube](https://youtu.be/l8pRSuU81PU) where you can see me introduce each commit and explain the pieces along the way.
 
 We basically start from an empty file and work our way to a reproduction of the [GPT-2](https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf) (124M) model. If you have more patience or money, the code can also reproduce the [GPT-3](https://arxiv.org/pdf/2005.14165) models. While the GPT-2 (124M) model probably trained for quite some time back in the day (2019, ~5 years ago), today, reproducing it is a matter of ~1hr and ~$10. You'll need a cloud GPU box if you don't have enough, for that I recommend [Lambda](https://lambdalabs.com).

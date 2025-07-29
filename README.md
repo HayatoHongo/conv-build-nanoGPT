@@ -78,6 +78,22 @@ sudo docker run --gpus all -it \
   my-gpt-train torchrun --standalone --nproc_per_node=8 train.py
 ```
 
+After 1000 steps of training, you can quit and see the model weights.
+
+Ctrl + C 
+
+```bash
+cd ..
+```
+
+```bash
+ls
+```
+
+```bash
+cd model_weights
+```
+
 # Open a new window and donwload the file
 ```bash
 # ex: scp -i ~/.ssh/id_ed25519 ubuntu@192.9.171.166:~/model_weights/model_01000.pt ./model_01000.pt

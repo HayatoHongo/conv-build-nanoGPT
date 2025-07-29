@@ -118,7 +118,7 @@ scp -i ~/.ssh/id_ed25519 ubuntu@IP_address:~/model_weights/your-filename ./your-
 
 Use this colab notebook.
 
-https://colab.research.google.com/drive/1I4JdynPez1babszqFIB7tq4Nd4xdVMSc?usp=sharing
+https://colab.research.google.com/drive/14F1jJ7vTttXTNytuI4ABmIsDhVlgjo9S?usp=sharing
 
 ---
 

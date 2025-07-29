@@ -1,26 +1,32 @@
-FROM ubuntu:22.04
+# 元のDockerfile
 
+# ベースイメージはUbuntu（例として20.04）
+FROM ubuntu:20.04
+
+# 非対話モードの設定
 ENV DEBIAN_FRONTEND=noninteractive
 
+# システムパッケージの更新とインストール
 RUN apt-get update && apt-get install -y \
-    python3.10 \
+    python3 \
     python3-pip \
-    python3.10-venv \
-    python3.10-dev \
+    python3-dev \
     build-essential \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-RUN ln -sf /usr/bin/python3.10 /usr/bin/python && \
-    ln -sf /usr/bin/python3.10 /usr/bin/python3 && \
-    python --version && pip3 --version
-
+# 作業ディレクトリを設定
 WORKDIR /app
 
-COPY requirements.txt /app/requirements.txt
-RUN python -m pip install --upgrade pip && \
-    python -m pip install --default-timeout=3000 -r requirements.txt
-
+# プロジェクトファイル一式をコンテナにコピー
 COPY . /app
 
-CMD ["python", "fineweb.py"]
+# pipをアップグレード
+RUN python3 -m pip install --upgrade pip
+
+# 必要なPythonライブラリをインストール
+# タイムアウト: 3000秒
+RUN pip3 install --default-timeout=3000 numpy tiktoken datasets tqdm requests torch transformers matplotlib safetensors
+
+# コンテナ起動時のデフォルトコマンド（例：fineweb.pyを実行）
+CMD ["python3", "fineweb.py"]

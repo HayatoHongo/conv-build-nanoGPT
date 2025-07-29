@@ -38,6 +38,14 @@ under construction
 
 ## 🧪 3. Run the Following Commands on the Instance
 
+
+Open your terminal and ssh to cloud gpu
+
+```bash
+# ex: ssh ubuntu@159.13.53.57
+ssh ubuntu@....
+```
+
 # Clone the project repository
 
 ```bash

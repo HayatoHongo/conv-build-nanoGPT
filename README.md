@@ -72,14 +72,6 @@ Ask [ChatGPT](https://chatgpt.com/) for help. She is a great teacher on error ha
 Please learn how to handle errors with ChatGPT. Prompt your logs and situation.<br>
 
 
-# Run the Docker container
-```bash
-sudo docker run -it --name my-gpt-train hayatohongo/202050729-traingpt2-hayatohongo-v0:latest bash
-```
-
-# Exit the container
-Ctrl + D 
-
 ```bash
 mkdir -p /home/ubuntu/model_weights
 ```
@@ -88,7 +80,8 @@ mkdir -p /home/ubuntu/model_weights
 sudo docker run --gpus all -it \
   -v /home/ubuntu/your_filesystem:/persistent \
   -v /home/ubuntu/model_weights:/app/log \
-  my-gpt-train torchrun --standalone --nproc_per_node=8 train.py
+  hayatohongo/202050729-traingpt2-hayatohongo-v0:latest \
+  torchrun --standalone --nproc_per_node=8 train.py
 ```
 
 After 1000 steps of training, you can quit and see the model weights.

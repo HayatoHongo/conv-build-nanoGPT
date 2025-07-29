@@ -67,6 +67,8 @@ cd conv-build-nanoGPT
 docker pull hayatohongo/202050729-traingpt2-hayatohongo-v0:latest
 ```
 
+Ask [ChatGPT](https://chatgpt.com/) for help. She is a great teacher for linux commands.
+
 # Run the Docker container
 ```bash
 sudo docker run -it --name my-gpt-train hayatohongo/202050729-traingpt2-hayatohongo-v0:latest bash

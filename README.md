@@ -67,7 +67,10 @@ cd conv-build-nanoGPT
 docker pull hayatohongo/202050729-traingpt2-hayatohongo-v0:latest
 ```
 
-Ask [ChatGPT](https://chatgpt.com/) for help. She is a great teacher for linux commands.
+Maybe you will encouter an error.<br>
+Ask [ChatGPT](https://chatgpt.com/) for help. She is a great teacher on error handling.<br>
+Please learn how to handle errors with ChatGPT. Prompt your logs and situation.<br>
+
 
 # Run the Docker container
 ```bash

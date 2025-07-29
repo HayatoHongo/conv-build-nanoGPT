@@ -81,7 +81,7 @@ mkdir -p /home/ubuntu/model_weights
 
 ```bash
 sudo docker run --gpus all -it \
-  -v /home/ubuntu/fineweb-filesystem-australia-east-1:/persistent \
+  -v /home/ubuntu/your_filesystem:/persistent \
   -v /home/ubuntu/model_weights:/app/log \
   my-gpt-train torchrun --standalone --nproc_per_node=8 train.py
 ```

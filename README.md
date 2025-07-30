@@ -78,7 +78,7 @@ mkdir -p /home/ubuntu/model_weights
 
 ```bash
 sudo docker run --gpus all -it \
-  -v /home/ubuntu/your_filesystem:/persistent \
+  -v /home/ubuntu/YOUR_FILESYSTEM:/persistent \
   -v /home/ubuntu/model_weights:/app/log \
   hayatohongo/202050729-traingpt2-hayatohongo-v0:latest \
   torchrun --standalone --nproc_per_node=8 train.py
@@ -112,6 +112,18 @@ scp -i ~/.ssh/id_ed25519 ubuntu@IP_address:~/model_weights/your-filename ./your-
 Use this colab notebook.
 
 https://colab.research.google.com/drive/14F1jJ7vTttXTNytuI4ABmIsDhVlgjo9S?usp=sharing
+
+
+Deploy your model on hugging face inference endpoint
+
+Prerequisites: you need to create hugging face account. 
+
+access the following site
+
+https://huggingface.co/HayatoHongo/fineweb-gpt2-demo02
+
+https://huggingface.co/HayatoHongo/fineweb-gpt2-demo02
+
 
 ---
 
